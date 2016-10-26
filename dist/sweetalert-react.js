@@ -965,7 +965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (typeof MouseEvent === 'function') {
 	    // Up-to-date approach
 	    var mevt = new MouseEvent('click', {
-	      view: window,
+	      view: typeof window !== 'undefined' && window,
 	      bubbles: false,
 	      cancelable: true
 	    });
@@ -987,7 +987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (typeof e.stopPropagation === 'function') {
 	    e.stopPropagation();
 	    e.preventDefault();
-	  } else if (window.event && window.event.hasOwnProperty('cancelBubble')) {
+	  } else if (typeof window !== 'undefined' && window.event && window.event.hasOwnProperty('cancelBubble')) {
 	    window.event.cancelBubble = true;
 	  }
 	};
@@ -1222,7 +1222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  (0, _handleDom.addClass)($modal, 'showSweetAlert');
 	  (0, _handleDom.removeClass)($modal, 'hideSweetAlert');
 
-	  window.previousActiveElement = document.activeElement;
+	  typeof window !== 'undefined' && (window.previousActiveElement = document.activeElement);
 	  var $okButton = $modal.querySelector('button.confirm');
 	  $okButton.focus();
 
@@ -1327,21 +1327,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Check if the user is using Internet Explorer 8 (for fallbacks)
 	 */
 	var isIE8 = function isIE8() {
-	  return window.attachEvent && !window.addEventListener;
+	  return typeof window !== 'undefined' && window.attachEvent && !window.addEventListener;
 	};
 
 	/*
 	 * IE compatible logging for developers
 	 */
 	var logStr = function logStr(string) {
-	  if (window.console) {
+	  if (typeof window !== 'undefined' && window.console) {
 	    // IE...
 	    window.console.log('SweetAlert: ' + string);
 	  }
 	};
 
 	/*
-	 * Set hover, active and focus-states for buttons 
+	 * Set hover, active and focus-states for buttons
 	 * (source: http://www.sitepoint.com/javascript-generate-lighter-darker-color)
 	 */
 	var colorLuminance = function colorLuminance(hex, lum) {
@@ -6366,7 +6366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * User clicked on "Confirm"/"OK" or "Cancel"
 	 */
 	var handleButton = function handleButton(event, params, modal) {
-	  var e = event || window.event;
+	  var e = event || typeof window !== 'undefined' && window.event;
 	  var target = e.target || e.srcElement;
 
 	  var targetedConfirm = target.className.indexOf('confirm') !== -1;
@@ -6501,7 +6501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _handleSwalDom = __webpack_require__(8);
 
 	var handleKeyDown = function handleKeyDown(event, params, modal) {
-	  var e = event || window.event;
+	  var e = event || typeof window !== 'undefined' && window.event;
 	  var keyCode = e.keyCode || e.which;
 
 	  var $okButton = modal.querySelector('button.confirm');
@@ -7000,19 +7000,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var onKeyEvent = function onKeyEvent(e) {
 	    return (0, _modulesHandleKey2['default'])(e, params, modal);
 	  };
-	  window.onkeydown = onKeyEvent;
-
-	  window.onfocus = function () {
-	    // When the user has focused away and focused back from the whole window.
-	    setTimeout(function () {
-	      // Put in a timeout to jump out of the event sequence.
-	      // Calling focus() in the event sequence confuses things.
-	      if (lastFocusedButton !== undefined) {
-	        lastFocusedButton.focus();
-	        lastFocusedButton = undefined;
-	      }
-	    }, 0);
-	  };
+	  if (typeof window !== 'undefined') {
+	    window.onkeydown = onKeyEvent;
+	    window.onfocus = function () {
+	      // When the user has focused away and focused back from the whole window.
+	      setTimeout(function () {
+	        // Put in a timeout to jump out of the event sequence.
+	        // Calling focus() in the event sequence confuses things.
+	        if (lastFocusedButton !== undefined) {
+	          lastFocusedButton.focus();
+	          lastFocusedButton = undefined;
+	        }
+	      }, 0);
+	    };
+	  }
 
 	  // Show alert with enabled buttons always
 	  swal.enableButtons();
@@ -7072,10 +7073,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  (0, _modulesHandleDom.removeClass)(document.body, 'stop-scrolling');
 
 	  // Reset the page to its previous state
-	  window.onkeydown = previousWindowKeyDown;
-	  if (window.previousActiveElement) {
-	    window.previousActiveElement.focus();
+	  if (typeof window !== 'undefined') {
+	    window.onkeydown = previousWindowKeyDown;
+	    if (window.previousActiveElement) {
+	      typeof window !== 'undefined' && window.previousActiveElement.focus();
+	    }
 	  }
+
 	  lastFocusedButton = undefined;
 	  clearTimeout(modal.timeout);
 
