@@ -65,7 +65,7 @@
   "dependencies": {
     "lodash.pick": "^4.2.1",
     "mousetrap": "^1.5.3",
-    "sweetalert": "git@github.com:nlhuykhang/sweetalert.git#ac27054907789354ecc85bf710502150dec51d9b",
+    "sweetalert": "git+https://git@github.com:nlhuykhang/sweetalert.git#ac27054907789354ecc85bf710502150dec51d9b",
     "warning": "^2.1.0"
   },
   "peerDependencies": {
