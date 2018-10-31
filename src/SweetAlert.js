@@ -1,4 +1,5 @@
-import { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import swal from 'sweetalert';
 import pick from 'lodash.pick';
 import mousetrap from 'mousetrap';

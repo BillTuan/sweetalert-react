@@ -65,6 +65,7 @@
   "dependencies": {
     "lodash.pick": "^4.2.1",
     "mousetrap": "^1.5.3",
+    "prop-types": "^15.6.2",
     "sweetalert": "https://github.com/nlhuykhang/sweetalert.git#ac27054907789354ecc85bf710502150dec51d9b",
     "warning": "^2.1.0"
   },
